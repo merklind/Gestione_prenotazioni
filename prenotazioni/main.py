@@ -42,11 +42,10 @@ today = datetime(datetime.today().year, datetime.today().month, datetime.today()
 
 # erase_all_reservation_rendiconto(ws_rendiconto, start_row_rendiconto, end_row_rendiconto)
 erase_future_reservation(ws_rendiconto, today, start_row_rendiconto, end_row_rendiconto)
-
 #RENDICONTO WORKSHEET #
 # iter over all reservations in Riepilogo worksheet
-for number_reservation in range(start_row_riepilogo, end_row_riepilogo + 1):
-    print('Compute reservation: ' + str(number_reservation-1))
+for number_reservation in range(start_row_riepilogo, end_row_riepilogo):
+    print(f'Compute reservation: {number_reservation}')
 
     # get the state of the reservation
     state = ws_riepilogo_data_only.cell(number_reservation, column_label['Stato prenotazione']).value
