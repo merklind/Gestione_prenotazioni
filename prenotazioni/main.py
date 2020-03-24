@@ -2,7 +2,7 @@ from datetime import datetime
 from json import load
 from pathlib import PurePath
 
-from prenotazioni.constants import *
+from prenotazioni.constants import MASTER_FILE, COLUMN_FILE, APARTMENT_FILE, RIEPILOGO_WS, RENDICONTO_WS
 from prenotazioni.utils.excel_utils import find_max_row, get_info_reservation, open_workbook, open_worksheet
 from prenotazioni.style_worksheet.style_excel import erase_future_reservation, set_rendiconto_occupation_cell,\
     set_rendiconto_gross_cell, set_rendiconto_net_cell, set_cell_reservation_break
@@ -59,17 +59,18 @@ for number_reservation in range(start_row_riepilogo, end_row_riepilogo):
 
     # check if the reservation isn't "Cancellata"
     if state.lower() != 'cancellata':
-        if date_check_in >= today:
-            info_reservation = get_info_reservation(ws_riepilogo_data_only, number_reservation, column_label)
 
-            # find in apartment.json file the right column for the specified house and apartment for "Occupazione" subtable
-            taken_column = find_column_apartment(info_reservation, apartment_json, 'Occupazione')
-            # find in apartment.json file the right column for the specified house and apartment for "Incasso lordo" table
-            gross_column = find_column_apartment(info_reservation, apartment_json, 'Incasso lordo')
-            # find in apartment.json file the right column for the specified house and apartment for "Incasso netto" table
-            net_column = find_column_apartment(info_reservation, apartment_json, 'Incasso netto')
-            # find in column_label.json file the right column for the price per night
-            start_column_price = column_label['Giorno 1']
+        info_reservation = get_info_reservation(ws_riepilogo_data_only, number_reservation, column_label)
+        # find in apartment.json file the right column for the specified house and apartment for "Occupazione" subtable
+        taken_column = find_column_apartment(info_reservation, apartment_json, 'Occupazione')
+        # find in apartment.json file the right column for the specified house and apartment for "Incasso lordo" table
+        gross_column = find_column_apartment(info_reservation, apartment_json, 'Incasso lordo')
+        # find in apartment.json file the right column for the specified house and apartment for "Incasso netto" table
+        net_column = find_column_apartment(info_reservation, apartment_json, 'Incasso netto')
+        # find in column_label.json file the right column for the price per night
+        start_column_price = column_label['Giorno 1']
+
+        if date_check_in >= today:
 
             # set thick border for range cell, set value to 1 and set background color
             set_rendiconto_occupation_cell(ws_rendiconto, start_row_rendiconto, info_reservation, taken_column)
@@ -79,15 +80,6 @@ for number_reservation in range(start_row_riepilogo, end_row_riepilogo):
             set_rendiconto_net_cell(ws_rendiconto, start_row_rendiconto, net_column, gross_column, info_reservation)
 
         if date_check_in < today < date_check_out:
-            info_reservation = get_info_reservation(ws_riepilogo_data_only, number_reservation, column_label)
-            # find in apartment.json file the right column for the specified house and apartment for "Occupazione" subtable
-            taken_column = find_column_apartment(info_reservation, apartment_json, 'Occupazione')
-            # find in apartment.json file the right column for the specified house and apartment for "Incasso lordo" table
-            gross_column = find_column_apartment(info_reservation, apartment_json, 'Incasso lordo')
-            # find in apartment.json file the right column for the specified house and apartment for "Incasso netto" table
-            net_column = find_column_apartment(info_reservation, apartment_json, 'Incasso netto')
-            # find in column_label.json file the right column for the price per night
-            start_column_price = column_label['Giorno 1']
 
             set_cell_reservation_break(ws_rendiconto, start_row_rendiconto, info_reservation, taken_column, gross_column,
                                        net_column, today, info_reservation['Tipo tariffa'])
