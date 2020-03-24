@@ -307,15 +307,15 @@ def stylish_apartment_cell(ws, reservation, starting_row, column_price):
 
 def stylish_name_guest_cell(ws, reservation, starting_row, column_price):
 
-    rate = reservation['rate']
-    state = reservation['state']
+    rate = reservation['rate'].lower()
+    state = reservation['state'].lower()
     name_guest = reservation['name_guest']
 
     ws.merge_cells(start_row=starting_row, end_row=starting_row, start_column=column_price, end_column=column_price + 2)
     current_cell = ws.cell(row=starting_row, column=column_price)
     current_cell.value = name_guest
     current_cell.alignment = Alignment(horizontal='center')
-    if state == 'Cancellata':
+    if state == 'cancellata':
         current_cell.font = Font(b=True, color=RED)
     fill_cell(rate, current_cell, state)
 
