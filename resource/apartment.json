@@ -1,0 +1,78 @@
+{
+    "bds" : {
+      "Occupazione": {
+        "piccolo": 3,
+        "medio": 4,
+        "grande": 5,
+        "bilocale": 6
+      },
+      "Incasso lordo": {
+        "piccolo": 10,
+        "medio": 11,
+        "grande": 12,
+        "bilocale": 13
+      },
+      "Incasso netto": {
+        "piccolo": 17,
+        "medio": 18,
+        "grande": 19,
+        "bilocale": 20
+      },
+      "Dettaglio prezzi": 1
+    },
+    "porta romana": {
+      "Occupazione":{
+        "destra": 24,
+        "sinistra": 25,
+        "tutto unito": 26
+      },
+      "Incasso lordo": {
+        "destra": 30,
+        "sinistra": 31,
+        "tutto unito": 32
+      },
+      "Incasso netto": {
+        "destra": 36,
+        "sinistra": 37,
+        "tutto unito": 38
+      },
+      "Dettaglio prezzi": 5
+    },
+    "petrella": {
+      "Occupazione": {
+        "unico": 42
+      },
+      "Incasso lordo": {
+        "unico": 45
+      },
+      "Incasso netto": {
+        "unico": 48
+      },
+      "Dettaglio prezzi": 9
+    },
+    "buonarroti": {
+      "Occupazione": {
+        "unico": 51
+      },
+      "Incasso lordo": {
+        "unico": 54
+      },
+      "Incasso netto": {
+        "unico": 57
+      },
+      "Dettaglio prezzi": 13
+
+    },
+    "pioppette" : {
+      "Occupazione": {
+        "unico": 60
+      },
+      "Incasso lordo": {
+        "unico": 63
+      },
+      "Incasso netto": {
+        "unico": 66
+      },
+      "Dettaglio prezzi": 17
+    }
+}
