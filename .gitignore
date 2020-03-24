@@ -69,3 +69,11 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/dettaglio prezzo per notte.xlsx
+/master entrate e dettaglio check in-out.xlsx
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/Prenotazioni.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/pylint.xml
+/.idea/vcs.xml
