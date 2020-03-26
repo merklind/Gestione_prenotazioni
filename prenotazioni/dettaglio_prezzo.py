@@ -27,46 +27,46 @@ if __name__ == '__main__':
     current_year = date.today().year
 
 
-    option = int(input(f'Vuoi ricreare il dettaglio prezzi per:\n1) Tutti gli anni\n2) L\'anno corrente\n'))
+    # option = int(input(f'Vuoi ricreare il dettaglio prezzi per:\n1) Tutti gli anni\n2) L\'anno corrente\n'))
+    #
+    # # to create table for all reservation
+    # if option == 1:
+    #     reset_max_row_json()
+    #     for year in range(2017, 2021):
+    #         all_reservation = get_reservation_by_year(ws_master, year, max_row, column_label)
+    #         ws = duplicate_worksheet(wb_dettaglio_prezzi, year)
+    #         for reservation in all_reservation:
+    #             print(f'Compute reservation {index_res}: {reservation["name_guest"]}')
+    #             year = reservation['check-in'].year
+    #             house = reservation['house'].lower()
+    #
+    #             column_price = apartment[house]['Dettaglio prezzi']
+    #             starting_row = max_row_dettaglio_prezzo[f'{year}'][house]
+    #             row_update = insert_new_dettaglio_prezzo_reservation(ws, reservation, starting_row, column_price)
+    #
+    #             max_row_dettaglio_prezzo[f'{year}'][house] = row_update
+    #             index_res += 1
+    #
+    #
+    # # to create table only for current year
+    # elif option == 2:
 
-    # to create table for all reservation
-    if option == 1:
-        reset_max_row_json()
-        for year in range(2017, 2021):
-            all_reservation = get_reservation_by_year(ws_master, year, max_row, column_label)
-            ws = duplicate_worksheet(wb_dettaglio_prezzi, year)
-            for reservation in all_reservation:
-                print(f'Compute reservation {index_res}: {reservation["name_guest"]}')
-                year = reservation['check-in'].year
-                house = reservation['house'].lower()
+    ws = duplicate_worksheet(wb_dettaglio_prezzi, current_year)
+    all_reservation = get_reservation_by_year(ws_master, current_year, max_row, column_label)
 
-                column_price = apartment[house]['Dettaglio prezzi']
-                starting_row = max_row_dettaglio_prezzo[f'{year}'][house]
-                row_update = insert_new_dettaglio_prezzo_reservation(ws, reservation, starting_row, column_price)
-
-                max_row_dettaglio_prezzo[f'{year}'][house] = row_update
-                index_res += 1
+    for reservation in all_reservation:
+        if reservation['check-in'].year >= current_year:
+            print(f'Compute reservation {index_res}: {reservation["name_guest"]}')
+            house = reservation['house'].lower()
 
 
-    # to create table only for current year
-    elif option == 2:
+            column_price = apartment[house]['Dettaglio prezzi']
+            starting_row = max_row_dettaglio_prezzo[f'{current_year}'][house]
+            row_update = insert_new_dettaglio_prezzo_reservation(ws, reservation, starting_row, column_price)
 
-        ws = duplicate_worksheet(wb_dettaglio_prezzi, current_year)
-        all_reservation = get_reservation_by_year(ws_master, current_year, max_row, column_label)
+            max_row_dettaglio_prezzo[f'{current_year}'][house] = row_update
 
-        for reservation in all_reservation:
-            if reservation['check-in'].year >= current_year:
-                print(f'Compute reservation {index_res}: {reservation["name_guest"]}')
-                house = reservation['house'].lower()
-
-
-                column_price = apartment[house]['Dettaglio prezzi']
-                starting_row = max_row_dettaglio_prezzo[f'{current_year}'][house]
-                row_update = insert_new_dettaglio_prezzo_reservation(ws, reservation, starting_row, column_price)
-
-                max_row_dettaglio_prezzo[f'{current_year}'][house] = row_update
-
-                index_res += 1
+            index_res += 1
 
 
     wb_dettaglio_prezzi.save(file_path)
