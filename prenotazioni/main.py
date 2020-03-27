@@ -42,6 +42,11 @@ today = datetime(datetime.today().year, datetime.today().month, datetime.today()
 
 # erase_all_reservation_rendiconto(ws_rendiconto, start_row_rendiconto, end_row_rendiconto)
 erase_future_reservation(ws_rendiconto, today, start_row_rendiconto, end_row_rendiconto)
+
+# find the first row in riepilogo worksheet associated with the firts reservation of the year
+while ws_riepilogo_data_only.cell(start_row_riepilogo, column_label['Entrata']).value.year != today.year:
+    start_row_riepilogo += 1
+
 #RENDICONTO WORKSHEET #
 # iter over all reservations in Riepilogo worksheet
 for number_reservation in range(start_row_riepilogo, end_row_riepilogo):
