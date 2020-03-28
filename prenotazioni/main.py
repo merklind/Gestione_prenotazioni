@@ -35,7 +35,7 @@ print('File caricato\n')
 start_row_riepilogo = 2
 end_row_riepilogo = find_max_row(ws_riepilogo)
 start_row_rendiconto = 4
-end_row_rendiconto = 1303
+end_row_rendiconto = ws_rendiconto.max_row
 info_reservation = {}
 today = datetime(datetime.today().year, datetime.today().month, datetime.today().day)
 
@@ -43,7 +43,7 @@ today = datetime(datetime.today().year, datetime.today().month, datetime.today()
 # erase_all_reservation_rendiconto(ws_rendiconto, start_row_rendiconto, end_row_rendiconto)
 erase_future_reservation(ws_rendiconto, today, start_row_rendiconto, end_row_rendiconto)
 
-# find the first row in riepilogo worksheet associated with the firts reservation of the year
+# find the first row in riepilogo worksheet associated with the first reservation of the year
 while ws_riepilogo_data_only.cell(start_row_riepilogo, column_label['Entrata']).value.year != today.year:
     start_row_riepilogo += 1
 
