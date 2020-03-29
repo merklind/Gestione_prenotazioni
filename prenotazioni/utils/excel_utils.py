@@ -11,8 +11,6 @@ from prenotazioni.style_worksheet.style_excel import no_show_reservation_fill, c
     canceled_reservation_fill, stylish_apartment_cell, stylish_name_guest_cell, stylish_header_cell, \
     stylish_channel_cell, stylish_price_per_night, stylish_sum_price
 
-from prenotazioni import style_worksheet
-
 
 def find_max_row(ws):
     row = 1
