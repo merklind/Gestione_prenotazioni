@@ -8,11 +8,15 @@ from prenotazioni.utils.path_utils import get_folder_path
 from prenotazioni.utils.json_utils import reset_max_row_json
 
 if __name__ == '__main__':
+
     folder_path = get_folder_path()
+
     dettaglio_prezzi_path = folder_path.joinpath(DETTAGLIO_FILE)
     wb_master_path = folder_path.joinpath(MASTER_FILE)
+
     wb_dettaglio_prezzi, file_path = open_workbook(dettaglio_prezzi_path)
     wb_master, useless = open_workbook(wb_master_path, True)
+    
     ws_master = open_worksheet(wb_master, RIEPILOGO_WS)
 
     column_label_json = open(folder_path.joinpath(COLUMN_FILE), mode='r')
@@ -72,4 +76,3 @@ if __name__ == '__main__':
     wb_dettaglio_prezzi.save(file_path)
     wb_dettaglio_prezzi.close()
 
-    # save_max_row_json(max_row_dettaglio_prezzo)

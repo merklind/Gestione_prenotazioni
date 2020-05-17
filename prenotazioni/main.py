@@ -8,42 +8,50 @@ from prenotazioni.style_worksheet.style_excel import erase_future_reservation, s
     set_rendiconto_gross_cell, set_rendiconto_net_cell, set_cell_reservation_break
 from prenotazioni.utils.json_utils import find_column_apartment
 from prenotazioni.utils.path_utils import get_folder_path
+from prenotazioni.utils.path_utils import create_copy
 
 # set path of the folder
 folder_path = get_folder_path()
 
-
+# set the name of excel file
 name_file = MASTER_FILE
+
+# set the path of excel file
 wb_master_path = folder_path.joinpath(name_file)
 
-# open all needed files
+# open all resources files
 json_column_file = open(str(PurePath.joinpath(folder_path, COLUMN_FILE)))
 json_apartment_file = open(str(PurePath.joinpath(folder_path, APARTMENT_FILE)))
 apartment_json = load(json_apartment_file)
 column_label = load(json_column_file)
 
+# open all excel files
 wb, file_path = open_workbook(wb_master_path, data_only=False)
 wb_only_data, useless = open_workbook(wb_master_path, data_only=True)
+
 ws_riepilogo = open_worksheet(wb, RIEPILOGO_WS)
 ws_rendiconto = open_worksheet(wb, RENDICONTO_WS)
 ws_riepilogo_data_only = open_worksheet(wb_only_data, RIEPILOGO_WS)
 
 # create a copy of the file (security purpose)
-# create_copy(folder_path, name_file)
+create_copy(folder_path, name_file)
 
-print('File caricato\n')
+print('File caricati\n')
+
+# initialize some variables
 start_row_riepilogo = 2
 end_row_riepilogo = find_max_row(ws_riepilogo)
+
 start_row_rendiconto = 4
 end_row_rendiconto = ws_rendiconto.max_row
 info_reservation = {}
 today = datetime(datetime.today().year, datetime.today().month, datetime.today().day)
 
 
-# erase_all_reservation_rendiconto(ws_rendiconto, start_row_rendiconto, end_row_rendiconto)
+
 erase_future_reservation(ws_rendiconto, today, start_row_rendiconto, end_row_rendiconto)
 
-# find the first row in riepilogo worksheet associated with the first reservation of the year
+# find the row in riepilogo worksheet associated with the first reservation of the year
 while ws_riepilogo_data_only.cell(start_row_riepilogo, column_label['Entrata']).value.year != today.year:
     start_row_riepilogo += 1
 

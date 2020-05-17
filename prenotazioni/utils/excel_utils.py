@@ -13,6 +13,11 @@ from prenotazioni.style_worksheet.style_excel import no_show_reservation_fill, c
 
 
 def find_max_row(ws):
+    '''
+    Find the max row in the worksheet. The first row in the first column that is None.
+    :param ws: the worksheet where to find the number of the max row
+    :return: the number of the max row.
+    '''
     row = 1
     current_cell = ws.cell(row=row, column=1).value
     while current_cell is not None:
@@ -103,12 +108,20 @@ def insert_new_rendiconto_reservation(ws_dettaglio_prezzo, info_reservation):
 
 
 def open_workbook(path, data_only=False):
-
+    '''
+    Open the workbook at given path
+    :param path: Path of the workbook
+    :param data_only: If the workbook has to be open in data_only mode or not
+    :return: the workbook object and the real path of the workbook
+    '''
     try:
+        # try to open the workbook at the given path
         wb = load_workbook(path, data_only=data_only)
         print('Workbook caricato')
         return wb, path
     except FileNotFoundError:
+        # if the workbook at the given path doesn't exist
+        # ask the user to input the name of the excel file
         print(f'Foglio Excel non trovato al percorso: {path}')
         name_file = Path(input(f'Inserisci il nome del file: '))
         name_file_with_ext = name_file.with_suffix('.xlsx')
@@ -117,17 +130,27 @@ def open_workbook(path, data_only=False):
         wb = load_workbook(file_path, data_only=data_only)
         print('Workbook caricato')
         print(f'Foglio Excel {name_file_with_ext} caricato')
+        # return the workbook object and the new path
         return wb, file_path
 
 
 def open_worksheet(wb, name):
-
+    '''
+    Try to open the worksheet with the given name of wb object
+    :param wb: workbook where to open the worksheet
+    :param name: name of the worksheet
+    :return: worksheet object
+    '''
     try:
+        # try to open the worksheet
         ws = wb[name]
     except KeyError:
+        # if the worksheet with given name doesn't exits
+        # create a worksheet with the given name
         ws = wb.create_sheet(title=f'{name}')
         duplicate_worksheet(wb, name)
         print(f'Il foglio non è presente.\nCreato foglio con nome {name}.')
+    # return the worksheet object
     return ws
 
 
