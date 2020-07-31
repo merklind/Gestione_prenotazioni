@@ -12,7 +12,6 @@ booking_fill = PatternFill(start_color='FFEC3223', end_color='FFEC3223', fill_ty
 expedia_fill = PatternFill(start_color='FFF39C38', end_color='FFF39C38', fill_type='solid')
 airbnb_fill = PatternFill(start_color='FFF7C143', end_color='FFF7C143', fill_type='solid')
 direct_fill = PatternFill(start_color='FFFFFD54', end_color='FFFFFD54', fill_type='solid')
-other_fill = PatternFill(start_color='FF8C1A10', end_color='FF8C1A10', fill_type='solid')
 no_show_fill = PatternFill(start_color='FF8797AE', end_color='FF8797AE', fill_type='solid')
 penalty_fill = PatternFill(start_color='FFF092D4', end_color='FFF092D4', fill_type='solid')
 blank_fill = PatternFill(patternType=FILL_NONE)
@@ -80,7 +79,6 @@ def set_value_gross_cell(current_cell, current_date_cell, price_per_night, rate)
             current_cell.value = price_per_night
         elif current_cell.value is not None:
             old_price = current_cell.value
-            #current_cell.value = '=' + str(old_price) + '+' + str(price_per_night)
             current_cell.value = f'={old_price}+{price_per_night}'
         fill_cell(rate, current_cell)
 
@@ -119,6 +117,7 @@ def set_rendiconto_occupation_cell(ws_rendiconto, start_row_rendiconto, info_res
                 current_cell.border = middle_reservation_border()
                 set_value_occupation_cell(current_cell)
                 fill_cell(rate, current_cell, state)
+
             elif current_date_cell.value == date_check_out - timedelta(days=1):
                 current_cell.border = end_reservation_border()
                 set_value_occupation_cell(current_cell)
@@ -135,22 +134,93 @@ def set_rendiconto_occupation_cell(ws_rendiconto, start_row_rendiconto, info_res
         fill_first_cell(current_cell, channel)
 
 
-def set_value_net_cell(current_date_cell, current_cell, channel, gross_column, start_row_rendiconto, offset_date):
+def set_value_net_cell(ws_rendiconto, current_date_cell, current_cell, channel, gross_column, start_row_rendiconto, offset_date):
     column_letter = get_column_letter(gross_column)
     row_index = start_row_rendiconto + offset_date
+
     if current_date_cell.value is not None:
+
         if channel.lower() in ('booking', 'expedia'):
-            current_cell.value = "=" + column_letter + str(row_index) + "*0.82"
+
+            if current_cell.value is None:
+                current_cell.value = "=" + column_letter + str(row_index) + "*0.82"
+
+            elif current_cell.value is not None:
+                result = ''
+                old_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[0][1:]
+                new_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[1]
+                type_multiply = current_cell.value.split('*')[1:]
+                for multiplier in type_multiply:
+                    result = result+multiplier+'*'
+                if len(type_multiply) != 0:
+                    current_cell.value = f'={old_gross_price}*{result[:-1]} + {new_gross_price}*0.82'
+                else:
+                    current_cell.value = f'={old_gross_price} + {new_gross_price}*0.82'
+
+
+#               old_price = float(ws_rendiconto.cell(row_index, current_cell.column).value)
+#               current_cell.value = f'={old_price}+{column_letter}{row_index}*0.82'
+
         if channel.lower() in ('diretto', 'prolungamento', 'anticipo arrivo', 'kyos', 'ritorno', 'saltato booking'\
                                'saltato sito', 'sito sahi be', 'subito', 'saltato airbnb', 'saltato expedia'):
-            current_cell.value = '=' + column_letter + str(row_index)
+            if current_cell.value is None:
+                current_cell.value = '=' + column_letter + str(row_index)
+            elif current_cell.value is not None:
+                result = ''
+                old_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[0][1:]
+                new_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[1]
+                type_multiply = current_cell.value.split('*')[1:]
+                for multiplier in type_multiply:
+                    result = result + multiplier + '*'
+                if len(type_multiply) != 0:
+                    current_cell.value = f'={old_gross_price}*{result[:-1]} + {new_gross_price}'
+                else:
+                    current_cell.value = f'={old_gross_price} + {new_gross_price}'
+
         if channel.lower() in ('airbnb'):
             if  date(2018, 1, 3) <= current_date_cell.value.date() <= date(2018, 7, 14):
-                current_cell.value = f'={column_letter}{row_index} - {column_letter}{row_index}*3%*1.22'
+                if current_cell.value is None:
+                    current_cell.value = f'={column_letter}{row_index} * (1 - 3%*1.22)'
+                elif current_cell.value is not None:
+                    result = ''
+                    old_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[0][1:]
+                    new_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[1]
+                    type_multiply = current_cell.value.split('*')[1:]
+                    for multiplier in type_multiply:
+                        result = result + multiplier + '*'
+                    if len(type_multiply) != 0:
+                        current_cell.value = f'={old_gross_price}*{result[:-1]} + {new_gross_price}*(1-3%*1.22)'
+                    else:
+                        current_cell.value = f'={old_gross_price} + {new_gross_price}*(1-3%*1.22)'
             elif date(2018, 12, 18) <= current_date_cell.value.date() <= date(2019, 5, 19):
-                current_cell.value = f'={column_letter}{row_index} - {column_letter}{row_index}*5%*1.22'
-            elif date(2020, 2, 17) >= current_date_cell.value.date():
-                current_cell.value = f'={column_letter}{row_index} - {column_letter}{row_index}*14%*1.22'
+                if current_cell.value is None:
+                    current_cell.value = f'={column_letter}{row_index} * (1 - 5%*1.22)'
+                elif current_cell is not None:
+                    result = ''
+                    old_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[0][1:]
+                    new_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[1]
+                    type_multiply = current_cell.value.split('*')[1:]
+                    for multiplier in type_multiply:
+                        result = result + multiplier + '*'
+                    if len(type_multiply) != 0:
+                        current_cell.value = f'={old_gross_price}*{result[:-1]} + {new_gross_price}*(1-5%*1.22)'
+                    else:
+                        current_cell.value = f'={old_gross_price} + {new_gross_price}*(1-5%*1.22)'
+            elif date(2020, 2, 17) <= current_date_cell.value.date():
+                if current_cell.value is None:
+                    current_cell.value = f'={column_letter}{row_index} * (1 - 14%*1.22)'
+                elif current_cell.value is not None:
+                    result = ''
+                    old_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[0][1:]
+                    new_gross_price = ws_rendiconto.cell(row_index, gross_column).value.split('+')[1]
+                    type_multiply = current_cell.value.split('*')[1:]
+                    for multiplier in type_multiply:
+                        result = result + multiplier + '*'
+                    if len(type_multiply) != 0:
+                        current_cell.value = f'={old_gross_price}*{result[:-1]} + {new_gross_price}*(1-14%*1.22)'
+                    else:
+                        current_cell.value = f'={old_gross_price} + {new_gross_price}*(1-14%*1.22)'
+
 
 
 def set_rendiconto_gross_cell(ws_rendiconto, ws_riepilogo, gross_column, price_column, start_row_rendiconto,
@@ -195,7 +265,7 @@ def set_rendiconto_gross_cell(ws_rendiconto, ws_riepilogo, gross_column, price_c
 
     # se la prenotazione è di una sola notte
     elif date_check_in == date_check_out - timedelta(days=1):
-        current_cell.value = current_cell_price.value
+        set_value_gross_cell(current_cell, current_date_cell, price_per_night, rate)
         fill_cell(rate, current_cell)
 
 
@@ -210,13 +280,13 @@ def set_rendiconto_net_cell(ws_rendiconto, start_row_rendiconto, net_column, gro
 
     # imposto il prezzo netto per ogni notte
     while current_date_cell.value != date_check_out:
-        set_value_net_cell(current_date_cell, current_cell, channel, gross_column, start_row_rendiconto, offset_date)
+        set_value_net_cell(ws_rendiconto, current_date_cell, current_cell, channel, gross_column, start_row_rendiconto, offset_date)
         offset_date += 1
         current_date_cell = ws_rendiconto.cell(row=start_row_rendiconto + offset_date, column=1)
         current_cell = ws_rendiconto.cell(row=start_row_rendiconto + offset_date, column=net_column)
 
 
-def set_cell_reservation_break(ws_rendiconto, start_row_rendiconto, info_reservation, taken_column, gross_column,
+def set_cell_reservation_break(ws_rendiconto, ws_rendiconto_data_only, start_row_rendiconto, info_reservation, taken_column, gross_column,
                                net_column, today, rate):
 
     offset_date = 0
@@ -242,7 +312,7 @@ def set_cell_reservation_break(ws_rendiconto, start_row_rendiconto, info_reserva
                 set_value_gross_cell(gross_cell, current_date_cell, info_reservation['Giorno ' + str(info_reservation['Giorni'] - days_remaining + 1)], info_reservation['Tipo tariffa'])
             elif info_reservation['Giorni'] > 31:
                 set_value_gross_cell(gross_cell, current_date_cell, info_reservation['Importo notte'],info_reservation['Tipo tariffa'])
-            set_value_net_cell(current_date_cell, net_cell, info_reservation['Tramite'], gross_column, start_row_rendiconto, offset_date)
+            set_value_net_cell(ws_rendiconto_data_only, current_date_cell, net_cell, info_reservation['Tramite'], gross_column, start_row_rendiconto, offset_date)
             days_remaining -= 1
             offset_date += 1
             current_date_cell = ws_rendiconto.cell(row=start_row_rendiconto + offset_date, column=1)
