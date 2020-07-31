@@ -14,10 +14,14 @@ if __name__ == '__main__':
     dettaglio_prezzi_path = folder_path.joinpath(DETTAGLIO_FILE)
     wb_master_path = folder_path.joinpath(MASTER_FILE)
 
+    print(f'Apertura file excel in corso...\n')
+
     wb_dettaglio_prezzi, file_path = open_workbook(dettaglio_prezzi_path)
     wb_master, useless = open_workbook(wb_master_path, True)
     
     ws_master = open_worksheet(wb_master, RIEPILOGO_WS)
+
+    print('File aperti\n')
 
     column_label_json = open(folder_path.joinpath(COLUMN_FILE), mode='r')
     apartment_json = open(folder_path.joinpath(APARTMENT_FILE), mode='r')

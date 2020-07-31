@@ -25,7 +25,7 @@ json_apartment_file = open(str(PurePath.joinpath(folder_path, APARTMENT_FILE)))
 apartment_json = load(json_apartment_file)
 column_label = load(json_column_file)
 
-print(f'Apertura file excel in corso...')
+print(f'Apertura file excel in corso...\n')
 
 # open all excel workbook
 wb, file_path = open_workbook(wb_master_path, data_only=False)

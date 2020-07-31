@@ -22,6 +22,8 @@ json_apartment_file = open(str(PurePath.joinpath(folder_path, APARTMENT_FILE)))
 apartment_json = load(json_apartment_file)
 column_label = load(json_column_file)
 
+print(f'Apertura file excel in corso...\n')
+
 wb, file_path = open_workbook(wb_master_path, data_only=False)
 wb_only_data, useless = open_workbook(wb_master_path, data_only=True)
 
@@ -33,7 +35,8 @@ ws_rendiconto_data_only = open_worksheet(wb_only_data, RENDICONTO_WS)
 # create a copy of the file (security purpose)
 # create_copy(folder_path, name_file)
 
-print('File caricato\n')
+print('File aperti\n')
+
 start_row_riepilogo = 2
 end_row_riepilogo = find_max_row(ws_riepilogo)
 start_row_rendiconto = 4
