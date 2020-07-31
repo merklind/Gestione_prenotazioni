@@ -24,9 +24,11 @@ column_label = load(json_column_file)
 
 wb, file_path = open_workbook(wb_master_path, data_only=False)
 wb_only_data, useless = open_workbook(wb_master_path, data_only=True)
+
 ws_riepilogo = open_worksheet(wb, RIEPILOGO_WS)
 ws_rendiconto = open_worksheet(wb, RENDICONTO_WS)
 ws_riepilogo_data_only = open_worksheet(wb_only_data, RIEPILOGO_WS)
+ws_rendiconto_data_only = open_worksheet(wb_only_data, RENDICONTO_WS)
 
 # create a copy of the file (security purpose)
 # create_copy(folder_path, name_file)
@@ -55,6 +57,9 @@ for number_reservation in range(start_row_riepilogo, end_row_riepilogo):
     # find the row of the check-in reservation in Rendiconto worksheet
     while ws_rendiconto.cell(start_row_rendiconto, 1).value != date_check_in:
         start_row_rendiconto += 1
+
+        if start_row_rendiconto == 10000:
+            start_row_rendiconto = 2
 
 
     # check if the reservation isn't "Cancellata"
