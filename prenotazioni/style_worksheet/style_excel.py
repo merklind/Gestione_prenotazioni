@@ -30,8 +30,8 @@ def fill_first_cell(current_cell, channel, state=''):
         current_cell.fill = airbnb_fill
     elif channel.lower() == 'expedia':
         current_cell.fill = expedia_fill
-    elif channel.lower() in ('anticipo arrivo', 'diretto', 'kyos', 'prolungamento', 'ritorno'\
-            'saltato booking', 'saltato sito', 'sito sahi be', 'subito'):
+    elif channel.lower() in ('diretto', 'prolungamento', 'anticipo arrivo', 'kyos', 'ritorno', 'saltato booking'\
+                               'saltato sito', 'sito sahi be', 'subito', 'saltato airbnb', 'saltato expedia'):
         current_cell.fill = direct_fill
     if state.lower() == 'no show':
         current_cell.fill = no_show_fill
@@ -156,10 +156,6 @@ def set_value_net_cell(ws_rendiconto, current_date_cell, current_cell, channel, 
                     current_cell.value = f'={old_gross_price}*{result[:-1]} + {new_gross_price}*0.82'
                 else:
                     current_cell.value = f'={old_gross_price} + {new_gross_price}*0.82'
-
-
-#               old_price = float(ws_rendiconto.cell(row_index, current_cell.column).value)
-#               current_cell.value = f'={old_price}+{column_letter}{row_index}*0.82'
 
         if channel.lower() in ('diretto', 'prolungamento', 'anticipo arrivo', 'kyos', 'ritorno', 'saltato booking'\
                                'saltato sito', 'sito sahi be', 'subito', 'saltato airbnb', 'saltato expedia'):
