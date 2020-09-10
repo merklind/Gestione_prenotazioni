@@ -4,10 +4,11 @@ from pathlib import PurePath
 
 from prenotazioni.constants import MASTER_FILE, COLUMN_FILE, APARTMENT_FILE, RIEPILOGO_WS, RENDICONTO_WS
 from prenotazioni.utils.excel_utils import find_max_row, get_info_reservation, open_workbook, open_worksheet
-from prenotazioni.style_worksheet.style_excel import erase_future_reservation, set_rendiconto_occupation_cell,\
-    set_rendiconto_gross_cell, set_rendiconto_net_cell, set_cell_reservation_break, erase_all_reservation_rendiconto
+from prenotazioni.style_worksheet.style_excel import set_rendiconto_occupation_cell,\
+    set_rendiconto_gross_cell, set_rendiconto_net_cell, erase_all_reservation_rendiconto
 from prenotazioni.utils.json_utils import find_column_apartment
 from prenotazioni.utils.path_utils import get_folder_path
+from prenotazioni.utils.path_utils import create_copy
 
 # set path of the folder
 folder_path = get_folder_path()
@@ -33,7 +34,7 @@ ws_riepilogo_data_only = open_worksheet(wb_only_data, RIEPILOGO_WS)
 ws_rendiconto_data_only = open_worksheet(wb_only_data, RENDICONTO_WS)
 
 # create a copy of the file (security purpose)
-# create_copy(folder_path, name_file)
+create_copy(folder_path, name_file)
 
 print('File aperti\n')
 
