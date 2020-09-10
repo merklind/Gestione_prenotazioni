@@ -89,5 +89,7 @@ for number_reservation in range(start_row_riepilogo, end_row_riepilogo):
 
     info_reservation.clear()
 
+print(f'\nSalvataggio file excel')
+
 wb.save(file_path)
 wb.close()
