@@ -74,5 +74,17 @@
         "unico": 66
       },
       "Dettaglio prezzi": 17
+    },
+    "corsico" : {
+      "Occupazione": {
+        "unico": 69
+      },
+      "Incasso lordo": {
+        "unico": 72
+      },
+      "Incasso netto": {
+        "unico": 75
+      },
+      "Dettaglio prezzi": 21
     }
 }

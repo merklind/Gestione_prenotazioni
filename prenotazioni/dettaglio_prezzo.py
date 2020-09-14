@@ -76,6 +76,7 @@ if __name__ == '__main__':
 
             index_res += 1
 
+    print(f'\nSalvataggio file excel')
 
     wb_dettaglio_prezzi.save(file_path)
     wb_dettaglio_prezzi.close()

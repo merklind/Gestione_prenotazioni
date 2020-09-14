@@ -345,7 +345,7 @@ def erase_all_reservation_rendiconto(ws_rendiconto, start_row_rendiconto, end_ro
     for index in range(start_row_rendiconto, end_row_rendiconto + 1):
         current_cell = ws_rendiconto.cell(row=start_row_rendiconto + offset_row, column=1)
         if current_cell.value is not None:
-            for cell in ws_rendiconto.iter_cols(min_col=3, max_col=74, min_row=start_row_rendiconto + offset_row, max_row=start_row_rendiconto + offset_row):
+            for cell in ws_rendiconto.iter_cols(min_col=3, max_col=75, min_row=start_row_rendiconto + offset_row, max_row=start_row_rendiconto + offset_row):
                 erase_cell(cell[0])
         offset_row += 1
     print('Erased all info in Rendiconto worksheet\n')
@@ -378,7 +378,7 @@ def erase_future_reservation(ws_rendiconto, today, start_row_rendiconto, end_row
         # if the current date cell is not blank
         if current_cell.value is not None:
             # loop over the column of all apartments
-            for cell in ws_rendiconto.iter_cols(min_col=3, max_col=74, min_row=start_row_rendiconto + offset_date,
+            for cell in ws_rendiconto.iter_cols(min_col=3, max_col=75, min_row=start_row_rendiconto + offset_date,
                                                 max_row=start_row_rendiconto + offset_date):
                 # delete content of the cell
                 erase_cell(cell[0])
