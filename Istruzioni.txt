@@ -1,0 +1,5 @@
+Per inserire nuovo appartamento:
+•   Nelle funzioni erase_future_reservation e erase_all_reservation aggiornare la massima colonna
+•   Nel file apartment.json inserire nuova chiave con il nome dell'appartamento e le rispettive colonne di occupazione,
+    incasso lordo e incasso netto
+• Nel file max_row_apartment.json inserire il nuovo appartamento in tutti gli anni
