@@ -2,11 +2,9 @@ from datetime import timedelta, date
 
 from openpyxl.styles import Border, Side, Alignment, Font
 from openpyxl.styles.borders import BORDER_MEDIUM, BORDER_NONE
-from openpyxl.styles.colors import RED
+from openpyxl.styles.colors import Color
 from openpyxl.styles.fills import PatternFill, FILL_NONE
 from openpyxl.utils import get_column_letter
-
-
 
 booking_fill = PatternFill(start_color='FFEC3223', end_color='FFEC3223', fill_type='solid')
 expedia_fill = PatternFill(start_color='FFF39C38', end_color='FFF39C38', fill_type='solid')
@@ -20,6 +18,8 @@ refundable_fill = PatternFill(start_color='FF48AFEA', end_color='FF48AFEA', fill
 confirmed_reservation_fill = PatternFill(start_color='FF4BAC5B', end_color='FF4BAC5B', fill_type='solid')
 canceled_reservation_fill = PatternFill(start_color='FFEC3323', end_color='FFEC3323', fill_type='solid')
 no_show_reservation_fill = PatternFill(start_color='FFF39C38', end_color='FFF39C38', fill_type='solid')
+
+RED = Color(rgb='FF0000')
 
 
 
