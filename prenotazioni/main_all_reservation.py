@@ -41,7 +41,7 @@ print('File aperti\n')
 start_row_riepilogo = 2
 end_row_riepilogo = find_max_row(ws_riepilogo)
 start_row_rendiconto = 4
-end_row_rendiconto = 1340
+end_row_rendiconto = ws_rendiconto_data_only.max_row
 info_reservation = {}
 today = datetime(datetime.today().year, datetime.today().month, datetime.today().day)
 
