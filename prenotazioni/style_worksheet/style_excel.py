@@ -30,7 +30,7 @@ def fill_first_cell(current_cell, channel, state=''):
         current_cell.fill = airbnb_fill
     elif channel.lower() == 'expedia':
         current_cell.fill = expedia_fill
-    elif channel.lower() in ('diretto', 'prolungamento', 'anticipo arrivo', 'kyos', 'ritorno', 'saltato booking'\
+    elif channel.lower() in ('diretto', 'prolungamento', 'anticipo arrivo', 'kyos', 'ritorno', 'saltato booking',\
                                'saltato sito', 'sito sahi be', 'subito', 'saltato airbnb', 'saltato expedia'):
         current_cell.fill = direct_fill
     if state.lower() == 'no show':
@@ -157,7 +157,7 @@ def set_value_net_cell(ws_rendiconto, current_date_cell, current_cell, channel, 
                 else:
                     current_cell.value = f'={old_gross_price} + {new_gross_price}*0.82'
 
-        if channel.lower() in ('diretto', 'prolungamento', 'anticipo arrivo', 'kyos', 'ritorno', 'saltato booking'\
+        if channel.lower() in ('diretto', 'prolungamento', 'anticipo arrivo', 'kyos', 'ritorno', 'saltato booking',\
                                'saltato sito', 'sito sahi be', 'subito', 'saltato airbnb', 'saltato expedia'):
             if current_cell.value is None:
                 current_cell.value = '=' + column_letter + str(row_index)
@@ -282,7 +282,7 @@ def set_rendiconto_net_cell(ws_rendiconto, start_row_rendiconto, net_column, gro
         current_cell = ws_rendiconto.cell(row=start_row_rendiconto + offset_date, column=net_column)
 
 
-def set_cell_reservation_break(ws_rendiconto, ws_rendiconto_data_only, start_row_rendiconto, info_reservation, taken_column, gross_column,
+def set_cell_reservation_break(ws_rendiconto, start_row_rendiconto, info_reservation, taken_column, gross_column,
                                net_column, today, rate):
 
     offset_date = 0
@@ -308,7 +308,7 @@ def set_cell_reservation_break(ws_rendiconto, ws_rendiconto_data_only, start_row
                 set_value_gross_cell(gross_cell, current_date_cell, info_reservation['Giorno ' + str(info_reservation['Giorni'] - days_remaining + 1)], info_reservation['Tipo tariffa'])
             elif info_reservation['Giorni'] > 31:
                 set_value_gross_cell(gross_cell, current_date_cell, info_reservation['Importo notte'],info_reservation['Tipo tariffa'])
-            set_value_net_cell(ws_rendiconto_data_only, current_date_cell, net_cell, info_reservation['Tramite'], gross_column, start_row_rendiconto, offset_date)
+            set_value_net_cell(ws_rendiconto, current_date_cell, net_cell, info_reservation['Tramite'], gross_column, start_row_rendiconto, offset_date)
             days_remaining -= 1
             offset_date += 1
             current_date_cell = ws_rendiconto.cell(row=start_row_rendiconto + offset_date, column=1)
