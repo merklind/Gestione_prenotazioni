@@ -99,7 +99,7 @@ for number_reservation in range(start_row_riepilogo, end_row_riepilogo):
 
         if date_check_in < today < date_check_out:
 
-            set_cell_reservation_break(ws_rendiconto, ws_rendiconto_data_only, start_row_rendiconto, info_reservation, taken_column, gross_column,
+            set_cell_reservation_break(ws_rendiconto, start_row_rendiconto, info_reservation, taken_column, gross_column,
                                        net_column, today, info_reservation['Tipo tariffa'])
 
     info_reservation.clear()
