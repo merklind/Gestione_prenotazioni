@@ -40,7 +40,7 @@ if __name__ == '__main__':
     # # to create table for all reservation
     # if option == 1:
     #     reset_max_row_json()
-    #     for year in range(2017, 2021):
+    #     for year in range(2017, 2022):
     #         all_reservation = get_reservation_by_year(ws_master, year, max_row, column_label)
     #         ws = duplicate_worksheet(wb_dettaglio_prezzi, year)
     #         for reservation in all_reservation:
