@@ -13,7 +13,7 @@
         "petrella": 2,
         "buonarroti": 2,
         "pioppette": 2,
-        "corsico":  2
+        "corsico": 2
     },
     "2019": {
         "bds": 2,
@@ -21,7 +21,7 @@
         "petrella": 2,
         "buonarroti": 2,
         "pioppette": 2,
-        "corsico":  2
+        "corsico": 2
     },
     "2020": {
         "bds": 2,
@@ -29,6 +29,14 @@
         "petrella": 2,
         "buonarroti": 2,
         "pioppette": 2,
-        "corsico":  2
+        "corsico": 2
+    },
+    "2021": {
+        "bds": 2,
+        "porta romana": 2,
+        "petrella": 2,
+        "buonarroti": 2,
+        "pioppette": 2,
+        "corsico": 2
     }
 }
