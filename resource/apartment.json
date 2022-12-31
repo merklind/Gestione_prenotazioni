@@ -86,7 +86,7 @@
     },
     "Dettaglio prezzi": 21
   },
-  "pioppette": {
+  "ciclamini": {
     "Occupazione": {
       "unico": 78
     },
@@ -97,5 +97,32 @@
       "unico": 84
     },
     "Dettaglio prezzi": 25
+  },
+  "madre cabrini": {
+    "Occupazione": {
+      "chronos dx": 87,
+      "chronos sx": 88
+    },
+    "Incasso lordo": {
+      "chronos dx": 91,
+      "chronos sx": 92
+    },
+    "Incasso netto": {
+      "chronos dx": 95,
+      "chronos sx": 98
+    },
+    "Dettaglio prezzi": 29
+  },
+  "pioppette": {
+    "Occupazione": {
+      "unico": 101
+    },
+    "Incasso lordo": {
+      "unico": 104
+    },
+    "Incasso netto": {
+      "unico": 107
+    },
+    "Dettaglio prezzi": 33
   }
 }
