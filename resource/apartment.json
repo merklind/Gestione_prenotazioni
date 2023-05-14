@@ -101,27 +101,38 @@
   "madre cabrini": {
     "Occupazione": {
       "chronos dx": 87,
-      "chronos sx": 88
+      "hermes sx": 88
     },
     "Incasso lordo": {
       "chronos dx": 91,
-      "chronos sx": 92
+      "hermes sx": 92
     },
     "Incasso netto": {
       "chronos dx": 95,
-      "chronos sx": 98
+      "hermes sx": 96
     },
     "Dettaglio prezzi": 29
   },
-  "pioppette": {
+  "calatafimi": {
     "Occupazione": {
-      "unico": 101
+      "unico": 99
     },
     "Incasso lordo": {
-      "unico": 104
+      "unico": 102
     },
     "Incasso netto": {
-      "unico": 107
+      "unico": 105
+    }
+  },
+  "pioppette": {
+    "Occupazione": {
+      "unico": 108
+    },
+    "Incasso lordo": {
+      "unico": 111
+    },
+    "Incasso netto": {
+      "unico": 114
     },
     "Dettaglio prezzi": 33
   }
