@@ -10,6 +10,7 @@ from prenotazioni.utils.json_utils import find_column_apartment
 from prenotazioni.utils.path_utils import create_copy
 from prenotazioni.utils.path_utils import get_folder_path
 
+
 def all_reservation():
     # set path of the folder
     folder_path = get_folder_path()
@@ -79,7 +80,8 @@ def all_reservation():
             # set thick border for range cell, set value to 1 and set background color
             set_rendiconto_occupation_cell(ws_rendiconto, start_row_rendiconto, info_reservation, taken_column)
             # set the price per night in Rendiconto worksheet
-            set_rendiconto_gross_cell(ws_rendiconto, ws_riepilogo, gross_column, start_column_price, start_row_rendiconto,
+            set_rendiconto_gross_cell(ws_rendiconto, ws_riepilogo, gross_column, start_column_price,
+                                      start_row_rendiconto,
                                       number_reservation, info_reservation)
             # set the net price per night in Rendiconto worksheet
             set_rendiconto_net_cell(ws_rendiconto, start_row_rendiconto, net_column, gross_column, info_reservation)

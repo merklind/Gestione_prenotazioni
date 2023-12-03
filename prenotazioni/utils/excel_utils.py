@@ -37,7 +37,6 @@ def get_info_reservation(ws_riepilogo_data_only, number_reservation, column_labe
 
 
 def insert_new_rendiconto_reservation(ws_dettaglio_prezzo, info_reservation):
-
     current_path = Path(__file__).parent.absolute()
 
     json_file = open(str(PurePath(current_path).joinpath('resource', 'apartment.json')))
@@ -56,14 +55,19 @@ def insert_new_rendiconto_reservation(ws_dettaglio_prezzo, info_reservation):
             row += 1
             next_cell = ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'])
 
-        ws_dettaglio_prezzo.merge_cells(start_row=row, end_row=row, start_column=info_reservation['start_column'], end_column=info_reservation['start_column'] + 2)
+        ws_dettaglio_prezzo.merge_cells(start_row=row, end_row=row, start_column=info_reservation['start_column'],
+                                        end_column=info_reservation['start_column'] + 2)
         ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).value = info_reservation['apartment']
-        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(horizontal='center')
+        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(
+            horizontal='center')
 
         row += 1
-        ws_dettaglio_prezzo.merge_cells(start_row=row, end_row=row, start_column=info_reservation['start_column'], end_column=info_reservation['start_column'] + 2)
-        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).value = info_reservation['name_guest']
-        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(horizontal='center')
+        ws_dettaglio_prezzo.merge_cells(start_row=row, end_row=row, start_column=info_reservation['start_column'],
+                                        end_column=info_reservation['start_column'] + 2)
+        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).value = info_reservation[
+            'name_guest']
+        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(
+            horizontal='center')
         if info_reservation['state'].lower() == 'cancellata':
             ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).fill = canceled_reservation_fill
         elif info_reservation['state'].lower() == 'prenotata' or info_reservation['state'].lower() == 'confermata':
@@ -73,23 +77,25 @@ def insert_new_rendiconto_reservation(ws_dettaglio_prezzo, info_reservation):
 
         row += 1
         ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).value = 'Data'
-        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(horizontal='center')
+        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(
+            horizontal='center')
         ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 1).value = 'Importo'
         ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 2).value = 'Tramite'
 
         row += 1
         first_row = row
 
-        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 2).value = info_reservation['channel']
+        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 2).value = info_reservation[
+            'channel']
 
         year = info_reservation['date_check_in'].year
         month = info_reservation['date_check_in'].month
         day = info_reservation['date_check_in'].day
 
         for current_cell in ws_dettaglio_prezzo.iter_rows(min_row=row,
-                                                          max_row=row+info_reservation['nights']-1,
+                                                          max_row=row + info_reservation['nights'] - 1,
                                                           min_col=info_reservation['start_column'],
-                                                          max_col=info_reservation['start_column']+1):
+                                                          max_col=info_reservation['start_column'] + 1):
             current_cell[0].number_format = '[$-F800]dddd\\,\\ mmmm\\ dd\\,\\ yyyy'
             current_cell[0].value = date(year, month, day) + timedelta(days=offset_day)
             current_cell[1].value = info_reservation['price']['day' + str(offset_day)]
@@ -98,13 +104,16 @@ def insert_new_rendiconto_reservation(ws_dettaglio_prezzo, info_reservation):
             row += 1
 
         ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).value = 'Totale'
-        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(horizontal='right')
+        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column']).alignment = Alignment(
+            horizontal='right')
 
         ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 1).value = \
             '=SUM(' + str(get_column_letter(info_reservation['start_column'] + 1)) + str(first_row) + ':' + \
-            str(get_column_letter(info_reservation['start_column'] + 1)) + str(first_row+info_reservation['nights']-1) + ')'
+            str(get_column_letter(info_reservation['start_column'] + 1)) + str(
+                first_row + info_reservation['nights'] - 1) + ')'
         ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 1).style = 'Migliaia'
-        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 1).font = Font(color=colors.RED, b=True)
+        ws_dettaglio_prezzo.cell(row=row, column=info_reservation['start_column'] + 1).font = Font(color=colors.RED,
+                                                                                                   b=True)
 
 
 def open_workbook(path, data_only=False):
@@ -163,7 +172,6 @@ def duplicate_worksheet(wb, name_ws):
 
 
 def get_reservation_by_year(ws, year, max_row, column_label):
-
     check_in_column = column_label['Entrata']
     all_reservation_by_year = []
     new_reservation = {}
@@ -194,7 +202,6 @@ def get_reservation_by_year(ws, year, max_row, column_label):
 
 
 def insert_new_dettaglio_prezzo_reservation(ws, reservation, starting_row, column_price):
-
     row_update = stylish_apartment_cell(ws, reservation, starting_row, column_price)
     row_update = stylish_name_guest_cell(ws, reservation, row_update, column_price)
     row_update = stylish_header_cell(ws, row_update, column_price)

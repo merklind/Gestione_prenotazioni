@@ -3,14 +3,11 @@ from pathlib import PurePath
 
 from openpyxl import load_workbook
 
-from prenotazioni.constants import *
+from prenotazioni.constants import MAX_ROW_FILE, RIEPILOGO_WS
 from prenotazioni.utils.path_utils import get_folder_path
-
-from prenotazioni.constants import MAX_ROW_FILE
 
 
 def find_column_apartment(info_reservation, json_apartment, type_column):
-
     house = info_reservation['Residenza'].lower()
     apartment = info_reservation['App. assegnato'].lower()
     column = json_apartment[house][type_column][apartment]
@@ -18,7 +15,6 @@ def find_column_apartment(info_reservation, json_apartment, type_column):
 
 
 def generate_json(ws_file, column_file):
-
     folder_path = get_folder_path()
     file_path = PurePath.joinpath(folder_path, ws_file)
     column_path = PurePath.joinpath(folder_path, column_file)
@@ -55,6 +51,5 @@ def reset_max_row_json():
 
 
 def save_max_row_json(max_row_dettaglio_prezzo):
-
     max_row_dettaglio_prezzo_json = open('../resource/max_row_dettaglio_prezzo.json', mode='w+')
     dump(max_row_dettaglio_prezzo, max_row_dettaglio_prezzo_json, indent=4)
