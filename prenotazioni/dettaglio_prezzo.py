@@ -5,7 +5,6 @@ from prenotazioni.constants import *
 from prenotazioni.utils.excel_utils import find_max_row, open_workbook, open_worksheet, duplicate_worksheet, \
     get_reservation_by_year, insert_new_dettaglio_prezzo_reservation
 from prenotazioni.utils.path_utils import get_folder_path
-from prenotazioni.utils.json_utils import reset_max_row_json
 
 if __name__ == '__main__':
 
@@ -18,7 +17,7 @@ if __name__ == '__main__':
 
     wb_dettaglio_prezzi, file_path = open_workbook(dettaglio_prezzi_path)
     wb_master, useless = open_workbook(wb_master_path, True)
-    
+
     ws_master = open_worksheet(wb_master, RIEPILOGO_WS)
 
     print('File aperti\n')
@@ -33,7 +32,6 @@ if __name__ == '__main__':
     max_row = find_max_row(ws_master)
     index_res = 1
     current_year = date.today().year
-
 
     # option = int(input(f'Vuoi ricreare il dettaglio prezzi per:\n1) Tutti gli anni\n2) L\'anno corrente\n'))
     #
@@ -67,7 +65,6 @@ if __name__ == '__main__':
             print(f'Compute reservation {index_res}: {reservation["name_guest"]}')
             house = reservation['house'].lower()
 
-
             column_price = apartment[house]['Dettaglio prezzi']
             starting_row = max_row_dettaglio_prezzo[f'{current_year}'][house]
             row_update = insert_new_dettaglio_prezzo_reservation(ws, reservation, starting_row, column_price)
@@ -80,4 +77,3 @@ if __name__ == '__main__':
 
     wb_dettaglio_prezzi.save(file_path)
     wb_dettaglio_prezzi.close()
-
