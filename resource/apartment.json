@@ -124,7 +124,7 @@
       "unico": 105
     }
   },
-  "pioppette": {
+  "canonica": {
     "Occupazione": {
       "unico": 108
     },
@@ -135,5 +135,17 @@
       "unico": 114
     },
     "Dettaglio prezzi": 33
+  },
+  "pioppette": {
+    "Occupazione": {
+      "unico": 117
+    },
+    "Incasso lordo": {
+      "unico": 120
+    },
+    "Incasso netto": {
+      "unico": 123
+    },
+    "Dettaglio prezzi": 37
   }
 }
