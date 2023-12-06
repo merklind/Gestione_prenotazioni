@@ -2,13 +2,14 @@ from datetime import datetime
 from json import load
 from pathlib import PurePath
 
-from prenotazioni.constants import MASTER_FILE, COLUMN_FILE, APARTMENT_FILE, RIEPILOGO_WS, RENDICONTO_WS
-from prenotazioni.style_worksheet.style_excel import erase_future_reservation, set_rendiconto_occupation_cell, \
+from src.constants import MASTER_FILE, COLUMN_FILE, APARTMENT_FILE, RIEPILOGO_WS, RENDICONTO_WS
+from src.style_worksheet.style_excel import erase_future_reservation, set_rendiconto_occupation_cell, \
     set_rendiconto_gross_cell, set_rendiconto_net_cell, set_cell_reservation_break
-from prenotazioni.utils.excel_utils import find_max_row, get_info_reservation, open_workbook, open_worksheet
-from prenotazioni.utils.json_utils import find_column_apartment
-from prenotazioni.utils.path_utils import create_copy
-from prenotazioni.utils.path_utils import get_folder_path
+from src.utils.excel_utils import find_max_row, get_info_reservation, open_workbook, open_worksheet
+from src.utils.json_utils import find_column_apartment
+from src.utils.path_utils import create_copy
+from src.utils.path_utils import get_folder_path
+
 
 def future_reservation():
     # set path of the folder

@@ -3,8 +3,8 @@ from pathlib import PurePath
 
 from openpyxl import load_workbook
 
-from prenotazioni.constants import MAX_ROW_FILE, RIEPILOGO_WS
-from prenotazioni.utils.path_utils import get_folder_path
+from src.constants import MAX_ROW_FILE, RIEPILOGO_WS
+from src.utils.path_utils import get_folder_path
 
 
 def find_column_apartment(info_reservation, json_apartment, type_column):

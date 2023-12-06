@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment, Font, colors
 from openpyxl.utils import get_column_letter
 
-from prenotazioni.style_worksheet.style_excel import no_show_reservation_fill, confirmed_reservation_fill, \
+from src.style_worksheet.style_excel import no_show_reservation_fill, confirmed_reservation_fill, \
     canceled_reservation_fill, stylish_apartment_cell, stylish_name_guest_cell, stylish_header_cell, \
     stylish_channel_cell, stylish_price_per_night, stylish_sum_price
 

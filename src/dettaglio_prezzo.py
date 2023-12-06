@@ -1,10 +1,10 @@
 from datetime import date
 from json import load
 
-from prenotazioni.constants import *
-from prenotazioni.utils.excel_utils import find_max_row, open_workbook, open_worksheet, duplicate_worksheet, \
+from src.constants import *
+from src.utils.excel_utils import find_max_row, open_workbook, open_worksheet, duplicate_worksheet, \
     get_reservation_by_year, insert_new_dettaglio_prezzo_reservation
-from prenotazioni.utils.path_utils import get_folder_path
+from src.utils.path_utils import get_folder_path
 
 if __name__ == '__main__':
 

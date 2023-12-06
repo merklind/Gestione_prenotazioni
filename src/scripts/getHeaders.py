@@ -4,7 +4,7 @@ from pathlib import Path
 from openpyxl.worksheet.worksheet import Worksheet
 
 from constants import RIEPILOGO_WS, COLUMN_FILE
-from prenotazioni import MASTER_FILE
+from src import MASTER_FILE
 from utils.excel_utils import open_workbook, open_worksheet
 from utils.path_utils import get_folder_path
 
