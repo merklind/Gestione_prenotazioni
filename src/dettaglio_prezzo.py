@@ -4,11 +4,11 @@ from json import load
 from src.constants import *
 from src.utils.excel_utils import find_max_row, open_workbook, open_worksheet, duplicate_worksheet, \
     get_reservation_by_year, insert_new_dettaglio_prezzo_reservation
-from src.utils.path_utils import get_folder_path
+from src.utils.path_utils import get_root_path
 
 if __name__ == '__main__':
 
-    folder_path = get_folder_path()
+    folder_path = get_root_path()
 
     dettaglio_prezzi_path = folder_path.joinpath(DETTAGLIO_FILE)
     wb_master_path = folder_path.joinpath(MASTER_FILE)

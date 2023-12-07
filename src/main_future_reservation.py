@@ -8,12 +8,12 @@ from src.style_worksheet.style_excel import erase_future_reservation, set_rendic
 from src.utils.excel_utils import find_max_row, get_info_reservation, open_workbook, open_worksheet
 from src.utils.json_utils import find_column_apartment
 from src.utils.path_utils import create_copy
-from src.utils.path_utils import get_folder_path
+from src.utils.path_utils import get_root_path
 
 
 def future_reservation():
     # set path of the folder
-    folder_path = get_folder_path()
+    folder_path = get_root_path()
 
     # set the name of excel file
     name_file = MASTER_FILE

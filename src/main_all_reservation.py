@@ -1,28 +1,24 @@
 from datetime import datetime
 from json import load
-from pathlib import PurePath
 
 from src.constants import MASTER_FILE, COLUMN_FILE, APARTMENT_FILE, RIEPILOGO_WS, RENDICONTO_WS
 from src.style_worksheet.style_excel import set_rendiconto_occupation_cell, \
     set_rendiconto_gross_cell, set_rendiconto_net_cell, erase_all_reservation_rendiconto
 from src.utils.excel_utils import find_max_row, get_info_reservation, open_workbook, open_worksheet
 from src.utils.json_utils import find_column_apartment
-from src.utils.path_utils import create_copy
-from src.utils.path_utils import get_folder_path
+from src.utils.path_utils import create_copy, build_file_path
 
 
 def all_reservation():
-    # set path of the folder
-    folder_path = get_folder_path()
+    wb_master_path = build_file_path(MASTER_FILE)
+    create_copy(wb_master_path)
 
-    name_file = MASTER_FILE
-    wb_master_path = folder_path.joinpath(name_file)
+    column_file = open(build_file_path(COLUMN_FILE))
+    apartment_file = open(build_file_path(APARTMENT_FILE))
 
     # open all needed files
-    json_column_file = open(str(PurePath.joinpath(folder_path, COLUMN_FILE)))
-    json_apartment_file = open(str(PurePath.joinpath(folder_path, APARTMENT_FILE)))
-    apartment_json = load(json_apartment_file)
-    column_label = load(json_column_file)
+    column_label = load(column_file)
+    apartment_json = load(apartment_file)
 
     print(f'Apertura file excel in corso...\n')
 
@@ -33,9 +29,6 @@ def all_reservation():
     ws_rendiconto = open_worksheet(wb, RENDICONTO_WS)
     ws_riepilogo_data_only = open_worksheet(wb_only_data, RIEPILOGO_WS)
     ws_rendiconto_data_only = open_worksheet(wb_only_data, RENDICONTO_WS)
-
-    # create a copy of the file (security purpose)
-    create_copy(folder_path, name_file)
 
     print('File aperti\n')
 
